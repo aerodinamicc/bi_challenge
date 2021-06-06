@@ -97,4 +97,4 @@ FROM recent_accidents;
 ```
 * if we are using the full outer join of accidents and vehicles
     * number of accidents we don't have vehicles / per date;
-    * number of accident indices present in vehicles data but not in accidents data /per day;
+    * number of accident indices present in vehicles data but not in accidents data / per date;
