@@ -9,6 +9,7 @@ The config.yaml is to let you setup database connection details; the other setti
 - [Tools](#tools)
 - [Any data quality practices you would enforce](#any-data-quality-practices-you-would-enforce)
 - [How you would test for correctness](#how-you-would-test-for-correctness)
+- [Dashboard](#dashboard)
 
 # How to run the script
 1. Make sure you have Python 3 installed
@@ -98,3 +99,8 @@ FROM recent_accidents;
 * if we are using the full outer join of accidents and vehicles
     * number of accidents we don't have vehicles / per date;
     * number of accident indices present in vehicles data but not in accidents data / per date;
+
+# Dashboard
+  For the vizualization part you could open viz_stuart.twb Tableau workbook, enter your database details and browse throught the dashboard.
+  
+  ![dashboard](./dashboard.png)
