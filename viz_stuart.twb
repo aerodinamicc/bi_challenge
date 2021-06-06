@@ -354,20 +354,20 @@
       </column>
       <column caption='Accident Index' datatype='string' name='[accident_index]' role='dimension' type='nominal' />
       <column caption='Accident Severity' datatype='string' name='[accident_severity]' role='dimension' type='nominal' />
-      <column aggregation='Sum' caption='Accident Severity Id (Dim Accident Severity)' datatype='integer' name='[accident_severity_id (dim_accident_severity)]' role='dimension' type='ordinal' />
-      <column aggregation='Sum' caption='Accident Severity Id' datatype='integer' name='[accident_severity_id]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Accident Severity Id (Dim Accident Severity)' datatype='integer' hidden='true' name='[accident_severity_id (dim_accident_severity)]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Accident Severity Id' datatype='integer' hidden='true' name='[accident_severity_id]' role='dimension' type='ordinal' />
       <column caption='Age Band Of Driver' datatype='string' name='[age_band_of_driver]' role='dimension' type='nominal' />
-      <column aggregation='Sum' caption='Age Band Of Driver Id (Dim Age Band Of Driver)' datatype='integer' name='[age_band_of_driver_id (dim_age_band_of_driver)]' role='dimension' type='ordinal' />
-      <column aggregation='Sum' caption='Age Band Of Driver Id' datatype='integer' name='[age_band_of_driver_id]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Age Band Of Driver Id (Dim Age Band Of Driver)' datatype='integer' hidden='true' name='[age_band_of_driver_id (dim_age_band_of_driver)]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Age Band Of Driver Id' datatype='integer' hidden='true' name='[age_band_of_driver_id]' role='dimension' type='ordinal' />
       <column caption='Age Of Vehicle' datatype='real' name='[age_of_vehicle]' role='measure' type='quantitative' />
       <column caption='Date' datatype='date' name='[date]' role='dimension' type='ordinal' />
       <column caption='Day Of Week' datatype='string' name='[day_of_week]' role='dimension' type='nominal' />
       <column caption='Driver Home Area Type' datatype='string' name='[driver_home_area_type]' role='dimension' type='nominal' />
-      <column aggregation='Sum' caption='Driver Home Area Type Id (Dim Driver Home Area Type)' datatype='integer' name='[driver_home_area_type_id (dim_driver_home_area_type)]' role='dimension' type='ordinal' />
-      <column aggregation='Sum' caption='Driver Home Area Type Id' datatype='integer' name='[driver_home_area_type_id]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Driver Home Area Type Id (Dim Driver Home Area Type)' datatype='integer' hidden='true' name='[driver_home_area_type_id (dim_driver_home_area_type)]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Driver Home Area Type Id' datatype='integer' hidden='true' name='[driver_home_area_type_id]' role='dimension' type='ordinal' />
       <column caption='Journey Purpose Of Driver' datatype='string' name='[journey_purpose_of_driver]' role='dimension' type='nominal' />
-      <column aggregation='Sum' caption='Journey Purpose Of Driver Id (Dim Journey Purpose Of Driver)' datatype='integer' name='[journey_purpose_of_driver_id (dim_journey_purpose_of_driver)]' role='dimension' type='ordinal' />
-      <column aggregation='Sum' caption='Journey Purpose Of Driver Id' datatype='integer' name='[journey_purpose_of_driver_id]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Journey Purpose Of Driver Id (Dim Journey Purpose Of Driver)' datatype='integer' hidden='true' name='[journey_purpose_of_driver_id (dim_journey_purpose_of_driver)]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Journey Purpose Of Driver Id' datatype='integer' hidden='true' name='[journey_purpose_of_driver_id]' role='dimension' type='ordinal' />
       <column-instance column='[accident_severity]' derivation='None' name='[none:accident_severity:nk]' pivot='key' type='nominal' />
       <layout dim-ordering='alphabetic' dim-percentage='0.791133' measure-ordering='alphabetic' measure-percentage='0.208867' show-structure='true' />
       <style>
@@ -703,8 +703,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='700' minheight='700' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='23' type='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98000' id='24' param='vert' type='layout-flow' w='98400' x='800' y='1000'>
+            <zone h='100000' id='31' type='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98000' id='32' param='vert' type='layout-flow' w='98400' x='800' y='1000'>
                 <zone fixed-size='280' h='64412' id='3' is-fixed='true' name='driver/vehicle age freq table' w='98400' x='800' y='1000'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
