@@ -3,7 +3,6 @@
 This project is your fully automated pipeline to donwload road traffic accidents datasets from a Kaggle, transform them and load into a PostgreSQL database with a predefined schema.
 The config.yaml is to let you setup database connection details; the other settings are enforced by the description of the task.
 
-- [Pipeline overview](#pipeline-overview)
 - [How to run the script](#how-to-run-the-script)
 - [How to query the data](#how-to-query-the-data)
 - [Tools](#tools)
