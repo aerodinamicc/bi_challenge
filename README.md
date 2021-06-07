@@ -71,9 +71,10 @@ WHERE table_name ~ 'dim_';
 ```
 
 # Tools
-- Python: With pandas, yaml and psycopg2 modules it has all the ingridients to pipe this amount of data in a swift manner
-- Yaml config: as a way to expose variables and give more user friendly feel
+- Python: With pandas, yaml and psycopg2 modules it has all the ingridients to pipe this amount of data in a swift manner.
+- Yaml config: as a way to expose variables and give more user friendly feel.
 - db_schema.sql: since the dimensions with the data are static, it allows for a scenario where PostgreSQL makes sure dimenions are there and the Python script only has to look them up.
+- Tableau: has compatibility with growing amount of data sources including PostgreSQL. Great tool for vizualizations and live dashboards.
 
 # Any data quality practices you would enforce
 - temporal completeness (establish any possibility for gaps)
