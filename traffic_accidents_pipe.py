@@ -20,9 +20,9 @@ def read_raw_data():
     """
     os.system('kaggle datasets download -d tsiaras/uk-road-safety-accidents-and-vehicles -w --unzip -p \"{}\"'.format(_WORKING_DIRECTORY))
 
-    acc = pd.read_csv(_CONFIG['accidents_csv'], usecols=_CONFIG['list_of_acc_columns'], dtype={'Accident_Index': str})
+    acc = pd.read_csv(os.path.join(_WORKING_DIRECTORY, _CONFIG['accidents_csv']), usecols=_CONFIG['list_of_acc_columns'], dtype={'Accident_Index': str})
     acc.columns = acc.columns.str.lower()
-    veh = pd.read_csv(_CONFIG['vehicles_csv'], usecols=_CONFIG['list_of_veh_columns'], dtype={'Accident_Index': str})
+    veh = pd.read_csv(os.path.join(_WORKING_DIRECTORY, _CONFIG['vehicles_csv']), usecols=_CONFIG['list_of_veh_columns'], dtype={'Accident_Index': str})
     veh.columns = veh.columns.str.lower()
 
     acc = acc[acc['accident_index'].isin(veh['accident_index'])]
