@@ -3,6 +3,8 @@
 This project is your fully automated pipeline to donwload road traffic accidents datasets from a Kaggle, transform them and load into a PostgreSQL database with a predefined schema.
 The config.yaml is to let you setup database connection details; the other settings are enforced by the description of the task.
 
+- [Pipeline overview](#pipeline-overview)
+- [Prerequisites](#prerequisites)
 - [How to run the script](#how-to-run-the-script)
 - [How to query the data](#how-to-query-the-data)
 - [Tools](#tools)
@@ -10,25 +12,29 @@ The config.yaml is to let you setup database connection details; the other setti
 - [How you would test for correctness](#how-you-would-test-for-correctness)
 - [Dashboard](#dashboard)
 
+# Prerequisites
+* Make sure you have an installation of
+- PostgreSQL 11
+- Python 3.7
+
 # How to run the script
-1. Make sure you have Python 3 installed
-2. Open the command line
-3. Create a Python virtual environment
+1. Open the command line
+2. Create a Python virtual environment
 ```
 virtualenv stuart
 ```
-4. Activate the virtualenv
+3. Activate the virtualenv
 ```
 .\stuart\Scripts\activate - for Windows
 source stuart/bin/activate - for Mac OS / Linux
 ```
-5. Install the required modules
+4. Install the required modules
 ```
 pip install -r requirements.txt
 ```
-6. Make sure to register with Kaggle and follow the instructions on [this link](https://github.com/Kaggle/kaggle-api#api-credentials) to get your credentials through the kaggle.json onto your system.
+5. Make sure to register with Kaggle and follow the instructions on [this link](https://github.com/Kaggle/kaggle-api#api-credentials) to get your credentials through the kaggle.json onto your system.
 
-7. Check the config.yaml file in the working directory. Change the following settings to apply for your setup
+6. Check the config.yaml file in the working directory. Change the following settings to apply for your setup
 ```
     db_host : localhost
     db_port : 5432
@@ -39,7 +45,7 @@ pip install -r requirements.txt
     db_name : stuart
 ```
 
-8. You can now run the python script:
+7. You can now run the python script:
 ```
 python .\traffic_accidents_pipe.py
 ```
@@ -61,7 +67,7 @@ FROM recent_accidents
 JOIN dim_accident_severity USING(accident_severity_id)
 JOIN dim_age_band_of_driver USING(age_band_of_driver_id)
 JOIN dim_driver_home_area_type USING(driver_home_area_type_id)
-JOIN dim_journey_purpose_of_driver USING(journey_purpose_of_driver_id);
+JOIN dim_journey_purpose_of_driver USING(journey_purpose_of_driver_id)
 ORDER BY accident_index;
 
 --statement to show dimension tables and their fields
@@ -72,7 +78,7 @@ WHERE table_name ~ 'dim_';
 
 # Tools
 - Python: With pandas, yaml and psycopg2 modules it has all the ingridients to pipe this amount of data in a swift manner.
-- Yaml config: as a way to expose variables and give more user friendly feel.
+- Yaml config: as a way to expose variables and give more dynamic feel.
 - db_schema.sql: since the dimensions with the data are static, it allows for a scenario where PostgreSQL makes sure dimenions are there and the Python script only has to look them up.
 - Tableau: has compatibility with growing amount of data sources including PostgreSQL. Great tool for vizualizations and live dashboards.
 

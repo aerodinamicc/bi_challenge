@@ -1,8 +1,12 @@
+# Kaggle dataset
+kaggle_dataset: tsiaras/uk-road-safety-accidents-and-vehicles
+zipped_dataset: uk-road-safety-accidents-and-vehicles.zip
+
 # Specify database details
 db_host : localhost
 db_port : 5432
-db_user: user_with_create_db_rights
-db_pass: pass
+db_user: postgres
+db_pass: admin
 
 # Database to be created and then utilized
 db_name : stuart
