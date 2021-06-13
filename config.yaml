@@ -5,11 +5,12 @@ zipped_dataset: uk-road-safety-accidents-and-vehicles.zip
 # Specify database details
 db_host : localhost
 db_port : 5432
-db_user: postgres
-db_pass: admin
+db_user: user_with_create_db_rights
+db_pass: password
+existing_db_name: existing_db_name
 
 # Database to be created and then utilized
-db_name : stuart
+new_db_name : stuart
 
 # Specify whether to take only the last 100 accidents or the whole set
 is_take_only_100_recent_accidents: True
