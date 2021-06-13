@@ -65,7 +65,7 @@ class Pipeline():
             cursor.execute("SELECT 1 FROM pg_catalog.pg_database WHERE datname = '{}'".format(self._CONFIG['new_db_name']))
             is_exist = cursor.fetchone()
             if not is_exist:
-                cursor.execute("create database {} owner {}".format(self._CONFIG['db_name'], self._CONFIG['db_user']))
+                cursor.execute("create database {} owner {}".format(self._CONFIG['new_db_name'], self._CONFIG['db_user']))
 
 
     def deploy_schema(self, conn):
