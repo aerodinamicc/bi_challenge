@@ -13,7 +13,7 @@ The config.yaml is to let you setup database connection details; the other setti
 - [Dashboard](#dashboard)
 
 # Prerequisites
-* Make sure you have an installation of
+Make sure you have an installation of
 - PostgreSQL 11
 - Python 3.7
 
