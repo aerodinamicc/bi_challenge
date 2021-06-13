@@ -76,7 +76,6 @@ class Pipeline():
             with open(os.path.join(self._WORKING_DIRECTORY, self._CONFIG['db_schema'])) as schema:
                 cursor.execute(schema.read())
                 conn.commit()
-                #check whether connection commit is called once
 
 
     def lookup_values_in_db(self, conn, df):
@@ -98,8 +97,7 @@ class Pipeline():
                             how='left',
                             on=dim)
                 df.drop(columns=[dim], inplace=True)
-        # test that merged is 8 columns and 170 rows
-        # check that *_id columns = len(self._CONFIG['dimension_lookups'])
+
         return df
 
 
@@ -123,10 +121,8 @@ class Pipeline():
             buffer.seek(0)
             try:
                 cursor.copy_from(buffer, self._CONFIG['fact_table'], null="", sep=',')
-                #check whether connection commit is called once
                 conn.commit()
             except Exception as error:
-                #simulate side effects
                 print("Error: {}".format(error)) 
                 conn.rollback()
 
