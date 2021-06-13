@@ -16,18 +16,12 @@ class Pipeline():
             self._CONFIG = yaml.full_load(file)
 
 
-    def download_data(self):
+    def download_data(self, api, dir_list):
         """
             Checks if files are pre-downloaded and if not fetches them through the Kaggle API.
         """
-        dir_list = os.listdir(self._WORKING_DIRECTORY)
         if self._CONFIG['accidents_csv'] not in dir_list or self._CONFIG['vehicles_csv'] not in dir_list:
-            # check that api.dataset_download_files does not get called if zipped_dataset is in dir.
-            # and the opposite
             if self._CONFIG['zipped_dataset'] not in dir_list:
-                api = KaggleApi()
-                api.authenticate()
-
                 api.dataset_download_files(self._CONFIG['kaggle_dataset'], \
                                             path=_WORKING_DIRECTORY)
 
@@ -39,7 +33,7 @@ class Pipeline():
         """
             Reads in a pandas dataframe and lowercases its columns.
         """
-        source_df = pd.read_csv(os.path.join(self._WORKING_DIRECTORY, file), usecols=columns, dtype={'Accident_Index': str})
+        source_df = pd.read_csv(os.path.join(self._WORKING_DIRECTORY, file), usecols=columns, dtype={'Accident_Index': str}, engine='python')
         source_df.columns = source_df.columns.str.lower()
 
         return source_df
@@ -58,27 +52,20 @@ class Pipeline():
         acc_subset = acc[-100:] if is_take_subset else acc
 
         merged = pd.merge(acc_subset, veh, on='accident_index', how='inner')
-        # test that merged is 8 columns and 170 rows
         return merged
 
 
-    def create_db(self):
+    def create_db(self, conn):
         """
             Checks if a database with the specified name already exists. 
             If yes - it skips the creation.
             If no - creates the database.
         """
-        with psycopg2.connect(host=self._CONFIG['db_host'], \
-                            port=self._CONFIG['db_port'], \
-                            user=self._CONFIG['db_user'], \
-                            password=self._CONFIG['db_pass']) as conn:
-            conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
-            with conn.cursor() as cursor:
-                cursor.execute("SELECT 1 FROM pg_catalog.pg_database WHERE datname = '{}'".format(self._CONFIG['db_name']))
-                is_exist = cursor.fetchone()
-                if not is_exist:
-                    cursor.execute("create database {} owner {}".format(self._CONFIG['db_name'], self._CONFIG['db_user']))
-                # check that cursor is called once if is_exist is not None and twice if is_exist is None
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT 1 FROM pg_catalog.pg_database WHERE datname = '{}'".format(self._CONFIG['new_db_name']))
+            is_exist = cursor.fetchone()
+            if not is_exist:
+                cursor.execute("create database {} owner {}".format(self._CONFIG['db_name'], self._CONFIG['db_user']))
 
 
     def deploy_schema(self, conn):
@@ -130,6 +117,7 @@ class Pipeline():
         """
             Inserts dataframe to the fact table.
         """
+        with conn.cursor() as cursor:
             buffer = StringIO()
             df.to_csv(buffer, index=False, header=False)
             buffer.seek(0)
@@ -144,21 +132,31 @@ class Pipeline():
 
 
     def run(self):
-        self.download_data()
+        dir_list = os.listdir(self._WORKING_DIRECTORY)
+        api = KaggleApi()
+        api.authenticate()
+        self.download_data(api, dir_list)
+
         acc = self.read_in_csv(self._CONFIG['accidents_csv'], self._CONFIG['list_of_acc_columns'])
         veh = self.read_in_csv(self._CONFIG['vehicles_csv'], self._CONFIG['list_of_veh_columns'])
         df = self.merge_data(acc, veh)
 
-        self.create_db()
+        with psycopg2.connect(host=self._CONFIG['db_host'], \
+                                port=self._CONFIG['db_port'], \
+                                database=self._CONFIG['existing_db_name'], \
+                                user=self._CONFIG['db_user'], \
+                                password=self._CONFIG['db_pass']) as conn:
+            conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+            self.create_db(conn)
 
         with psycopg2.connect(host=self._CONFIG['db_host'], \
-                            database=self._CONFIG['db_name'], \
+                            database=self._CONFIG['new_db_name'], \
                             port=self._CONFIG['db_port'], \
                             user=self._CONFIG['db_user'], \
                             password=self._CONFIG['db_pass']) as conn:
             self.deploy_schema(conn)
             df = self.lookup_values_in_db(conn, df)
-            df = df[self.fetch_columns_order_as_per_db(conn)]
+            df = df[self.fetch_columns_order_from_fact_table(conn)]
             self.copy_to_db(conn, df)
 
  
