@@ -13,7 +13,7 @@ The config.yaml is to let you setup database connection details; the other setti
 - [Dashboard](#dashboard)
 
 # Prerequisites
-Make sure you have an installation of
+Make sure you have a copy of the following installed:
 - PostgreSQL 11
 - Python 3.7
 
@@ -93,6 +93,10 @@ from recent_accidents;
 ```
 
 # How you would test for correctness
+* Run unit tests
+```
+python tests.py
+```
 * To make sure all string value are present in the dimension tables we could follow up with a check on the fact table foreign keys.
 ```
 SELECT 
