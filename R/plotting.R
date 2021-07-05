@@ -1,35 +1,6 @@
-install.packages("RPostgreSQL")
-
 library(tidyverse)
 
-library(DBI)
-
-library(RPostgreSQL)
-
 library(lubridate)
-
-#DBI::dbDriver('PostgreSQL')
-#require(RPostgreSQL)
-#drv=dbDriver("PostgreSQL")
-#con=dbConnect(drv,
-#              dbname="real_estate",
-#              host="localhost",
-#              port=5432,
-#              user="postgres",
-#              password="admin")
-#
-#dbListTables(conn = con)
-#
-#x <- RPostgreSQL::dbGetQuery(conn = con,
-#                        statement = 'select * from holmes limit 10;')
-#
-#Encoding(colnames(x)) <- "UTF-8"
-#
-#Sys.setlocale(category = "LC_COLLATE", locale = "Bulgarian")
-#
-#Sys.setlocale("LC_CTYPE", "bulgarian")
-#
-#Sys.setlocale("bg_BG")
 
 setwd("D:/git/bi_challenge")
 list.files('.')
